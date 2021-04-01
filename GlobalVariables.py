@@ -1,6 +1,7 @@
 import pygame
 from Player import Player
 from Enemies import Goblin
+import os
 
 # Constants
 WIDTH = 811
@@ -22,13 +23,18 @@ ENEMIES = ('Goblin', 'Nikita', 'Griffin', 'Minotaur', 'Ogre')
 # Player initialization
 player = Player()
 
+# Paths
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, 'Images')
+sound_folder = os.path.join(game_folder, 'Sounds')
+
 # Images of enemy
-background = pygame.image.load('Forest_background.jpeg')
-goblin_png = pygame.image.load('Goblin.png')
-nikita_png = pygame.image.load('Nikita.png')
-griffin_png = pygame.image.load('Griffin.png')
-minotaur_png = pygame.image.load('Minotaur.png')
-ogre_png = pygame.image.load('Ogre.png')
+background = pygame.image.load(os.path.join(img_folder, 'Forest_background.jpeg'))
+goblin_png = pygame.image.load(os.path.join(img_folder, 'Goblin.png'))
+nikita_png = pygame.image.load(os.path.join(img_folder, 'Nikita.png'))
+griffin_png = pygame.image.load(os.path.join(img_folder, 'Griffin.png'))
+minotaur_png = pygame.image.load(os.path.join(img_folder, 'Minotaur.png'))
+ogre_png = pygame.image.load(os.path.join(img_folder, 'Ogre.png'))
 
 # Game initialization
 pygame.init()
@@ -37,9 +43,10 @@ display = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Death clicks")
 
 # Sounds for game
-pygame.mixer.music.load('background_music.wav')
-attack_sound = pygame.mixer.Sound('attack_sound.wav')
-nikita_sound = (pygame.mixer.Sound('Nikita_sound.wav'), pygame.mixer.Sound('Nikita_sound_2.wav'))
+pygame.mixer.music.load(os.path.join(sound_folder, 'background_music.wav'))
+attack_sound = pygame.mixer.Sound(os.path.join(sound_folder, 'attack_sound.wav'))
+nikita_sound = (pygame.mixer.Sound(os.path.join(sound_folder, 'Nikita_sound.wav')),
+                pygame.mixer.Sound(os.path.join(sound_folder, 'Nikita_sound_2.wav')))
 
 # First enemy initialization
 enemy = Goblin()
