@@ -7,7 +7,7 @@ from Draw_functions import draw_enemy, update_enemy_position
 
 def mouse_command(click_position):
     """
-    Обрабатывает клик в завсимости от позиции.
+    Обрабатывает клик в зависимости от позиции.
     :param click_position: Координаты места, где произошел клик
     """
     if GlobalVariables.enemy.rect.collidepoint(click_position):
@@ -71,8 +71,8 @@ def new_enemy():
 
 def auto_attack():
     """
-    Возпроизводиться Авто-атака по врагу
-    Дается в три раза меньше коинов за каждый урон.
+    Воспроизводиться Авто-атака по врагу
+    Дается в три раза меньше монет за каждый урон.
     """
     GlobalVariables.enemy.hp -= GlobalVariables.player.auto_attack_damage
     GlobalVariables.player.coins += GlobalVariables.player.auto_attack_damage // 3
