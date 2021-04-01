@@ -18,6 +18,17 @@ MIN_HP = 20
 
 ENEMY_POSITION = (200, 400)
 
+distance_from_the_sides = 10
+distance_between_texts = 5
+text_height = 50
+distance_between_pos_texts = distance_between_texts + text_height
+upgrade_width = 150
+
+price_increase_factor = 1.5
+increase_HP = 10
+
+standard_text_color = (255, 70, 50)
+
 ENEMIES = ('Goblin', 'Nikita', 'Griffin', 'Minotaur', 'Ogre')
 
 # Player initialization

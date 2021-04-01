@@ -17,7 +17,7 @@ class Enemy(GameObject):
         """
         GameObject.__init__(self)
         self.level = max(1, GlobalVariables.player.progress + random.randint(0, 2))
-        self.hp = GlobalVariables.MIN_HP + self.level * 10
+        self.hp = GlobalVariables.MIN_HP + self.level * GlobalVariables.increase_HP
         self.name = 'None'
         self.timer_for_update = 8
 

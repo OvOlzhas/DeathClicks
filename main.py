@@ -18,24 +18,29 @@ def mouse_command(click_position):
             pygame.mixer.Sound.play(GlobalVariables.attack_sound)
         else:
             pygame.mixer.Sound.play(GlobalVariables.nikita_sound[random.randint(0, 1)])
-    if 55 * 1 + 10 <= click_position[1] <= 55 * 1 + 60 and \
-        GlobalVariables.WIDTH - 160 <= click_position[0] and \
+    if GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides\
+            <= click_position[1] <= GlobalVariables.distance_between_pos_texts * 1 + \
+            GlobalVariables.distance_from_the_sides + GlobalVariables.text_height and \
+            GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides <= click_position[0] and \
             GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_attack:
         # Была нажата кнопка UPGRADE у Your Damage
         # Улучшение урона за клик
         GlobalVariables.player.attack_damage += 1
         GlobalVariables.player.coins -= GlobalVariables.player.coins_for_upgrade_attack
         GlobalVariables.player.coins_for_upgrade_attack = \
-            int(GlobalVariables.player.coins_for_upgrade_attack * 1.5)
-    if 55 * 2 + 10 <= click_position[1] <= 55 * 2 + 60 and \
-        GlobalVariables.WIDTH - 160 <= click_position[0] and \
+            int(GlobalVariables.player.coins_for_upgrade_attack * GlobalVariables.price_increase_factor)
+    if GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides \
+            <= click_position[1] <= GlobalVariables.distance_between_pos_texts * 2 + \
+            GlobalVariables.distance_from_the_sides + GlobalVariables.text_height and \
+            GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides <= \
+            click_position[0] and \
             GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_auto_attack:
         # Была нажата кнопка UPGRADE у Your AutoAttackDamage
         # Улучшение урона за Авто-атаку
         GlobalVariables.player.auto_attack_damage += 1
         GlobalVariables.player.coins -= GlobalVariables.player.coins_for_upgrade_auto_attack
         GlobalVariables.player.coins_for_upgrade_auto_attack = \
-            int(GlobalVariables.player.coins_for_upgrade_auto_attack * 1.5)
+            int(GlobalVariables.player.coins_for_upgrade_auto_attack * GlobalVariables.price_increase_factor)
 
 
 def check_enemy():
@@ -56,7 +61,7 @@ def new_enemy():
     for i in GlobalVariables.ENEMIES:
         if GlobalVariables.enemy.name != i:
             enemies_without_enemy.append(i)
-    enemy_name = enemies_without_enemy[random.randint(0, 3)]
+    enemy_name = enemies_without_enemy[random.randint(0, len(GlobalVariables.ENEMIES) - 2)]
     if enemy_name == "Goblin":
         GlobalVariables.enemy = Goblin()
     if enemy_name == "Nikita":
@@ -78,8 +83,8 @@ def auto_attack():
     GlobalVariables.player.coins += GlobalVariables.player.auto_attack_damage // 3
 
 
-def print_text(message, x, y, font_color=(255, 70, 50),
-               font_type='Konstanting_font.ttf', font_size=50):
+def print_text(message, x, y, font_color=GlobalVariables.standard_text_color,
+               font_type='Konstanting_font.ttf', font_size=GlobalVariables.text_height):
     """
     Выводит текст в заданном цвете, позиции, шрифте и размере.
     :param message: Выводимый текст
@@ -117,16 +122,30 @@ def game():
         GlobalVariables.display.blit(GlobalVariables.background, (0, 0))
 
         # Вывод текста
-        print_text(f'Coins: {GlobalVariables.player.coins}', 10, 10)
-        print_text(f'Your Damage: {GlobalVariables.player.attack_damage}', 10, 55 * 1 + 10)
+        print_text(f'Coins: {GlobalVariables.player.coins}',
+                   GlobalVariables.distance_from_the_sides,
+                   GlobalVariables.distance_from_the_sides)
+        print_text(f'Your Damage: {GlobalVariables.player.attack_damage}',
+                   GlobalVariables.distance_from_the_sides,
+                   GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides)
         if GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_attack:
-            print_text(f'UPGRADE', GlobalVariables.WIDTH - 160, 55 * 1 + 10)
-        print_text(f'Your AutoAttackDamage: {GlobalVariables.player.auto_attack_damage}', 10, 55 * 2 + 10)
+            print_text(f'UPGRADE',
+                       GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides,
+                       GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides)
+        print_text(f'Your AutoAttackDamage: {GlobalVariables.player.auto_attack_damage}',
+                   GlobalVariables.distance_from_the_sides,
+                   GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides)
         if GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_auto_attack:
-            print_text(f'UPGRADE', GlobalVariables.WIDTH - 160, 55 * 2 + 10)
+            print_text(f'UPGRADE',
+                       GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides,
+                       GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides)
 
-        print_text(f'{GlobalVariables.enemy.name} level: {GlobalVariables.enemy.level}', 10, 55 * 3 + 10)
-        print_text(f'{GlobalVariables.enemy.name} HP: {GlobalVariables.enemy.hp}', 10, 55 * 4 + 10)
+        print_text(f'{GlobalVariables.enemy.name} level: {GlobalVariables.enemy.level}',
+                   GlobalVariables.distance_from_the_sides,
+                   GlobalVariables.distance_between_pos_texts * 3 + GlobalVariables.distance_from_the_sides)
+        print_text(f'{GlobalVariables.enemy.name} HP: {GlobalVariables.enemy.hp}',
+                   GlobalVariables.distance_from_the_sides,
+                   GlobalVariables.distance_between_pos_texts * 4 + GlobalVariables.distance_from_the_sides)
 
         # Отрисовка врага
         update_enemy_position()
