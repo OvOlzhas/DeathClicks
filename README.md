@@ -1,6 +1,11 @@
 # Запуск игры
 Для запуска программы надо прописать одну команду в консоли, запущенной в файле с игрой:
- - **python3 main.py**  
+```bash
+cd <Путь к директорию, где будет лежать игра>
+git clone https://github.com/OvOlzhas/PythonReview1.git
+cd PythonReview1
+python3 main.py
+```
 
 Также для запуска игры понадобиться установить **pygame**.
 

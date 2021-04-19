@@ -13,15 +13,21 @@ def mouse_command(click_position):
         # Удар прошелся по врагу
         GlobalVariables.player.coins += GlobalVariables.player.attack_damage
         GlobalVariables.enemy.hp -= GlobalVariables.player.attack_damage
+        # Вызов звука после удара
         if GlobalVariables.enemy.name != "BOSS Nikita":
             pygame.mixer.Sound.play(GlobalVariables.attack_sound)
         else:
             pygame.mixer.Sound.play(GlobalVariables.nikita_sound[random.randint(0, 1)])
-    if GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides\
-            <= click_position[1] <= GlobalVariables.distance_between_pos_texts * 1 + \
-            GlobalVariables.distance_from_the_sides + GlobalVariables.text_height and \
-            GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides \
-            <= click_position[0] and \
+    # Проверка того, была ли нажата та область, где находится кнопка UPGRADE,
+    # которая находиться рядом с Your Damage
+    upgade_botton_x = [GlobalVariables.WIDTH - GlobalVariables.upgrade_width
+                       - GlobalVariables.distance_from_the_sides,
+                       GlobalVariables.WIDTH]
+    upgade_botton_y = [GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides,
+                       GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides
+                       + GlobalVariables.text_height]
+    if upgade_botton_y[0] <= click_position[1] <= upgade_botton_y[1] and \
+            upgade_botton_x[0] <= click_position[0] <= upgade_botton_x[1] and \
             GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_attack:
         # Была нажата кнопка UPGRADE у Your Damage
         # Улучшение урона за клик
@@ -29,11 +35,16 @@ def mouse_command(click_position):
         GlobalVariables.player.coins -= GlobalVariables.player.coins_for_upgrade_attack
         GlobalVariables.player.coins_for_upgrade_attack = \
             int(GlobalVariables.player.coins_for_upgrade_attack * GlobalVariables.price_increase_factor)
-    if GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides \
-            <= click_position[1] <= GlobalVariables.distance_between_pos_texts * 2 + \
-            GlobalVariables.distance_from_the_sides + GlobalVariables.text_height and \
-            GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides <= \
-            click_position[0] and \
+    # Проверка того, была ли нажата та область, где находится кнопка UPGRADE,
+    # которая находиться рядом с Your AutoAttackDamage
+    upgade_auto_botton_x = [GlobalVariables.WIDTH - GlobalVariables.upgrade_width
+                            - GlobalVariables.distance_from_the_sides,
+                            GlobalVariables.WIDTH]
+    upgade_auto_botton_y = [GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides,
+                            GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides
+                            + GlobalVariables.text_height]
+    if upgade_auto_botton_y[0] <= click_position[1] <= upgade_auto_botton_y[1] and \
+            upgade_auto_botton_x[0] <= click_position[0] <= upgade_auto_botton_x[1] and \
             GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_auto_attack:
         # Была нажата кнопка UPGRADE у Your AutoAttackDamage
         # Улучшение урона за Авто-атаку
@@ -94,7 +105,11 @@ def print_text(message, x, y, font_color=GlobalVariables.standard_text_color,
 
 
 def print_all_text():
-    # Вывод текста
+    """
+    Вывод текста
+    """
+    # Левый верхний угол соседних строк находятся на расстоянии distance_between_pos_texts
+    # Поэтому появляются коэффициенты перед distance_between_pos_texts
     print_text(f'Coins: {GlobalVariables.player.coins}',
                GlobalVariables.distance_from_the_sides,
                GlobalVariables.distance_from_the_sides)
@@ -121,6 +136,7 @@ def print_all_text():
                GlobalVariables.distance_between_pos_texts * 4 + GlobalVariables.distance_from_the_sides)
 
     if GlobalVariables.player.progress % GlobalVariables.boss_rarity == 0 and GlobalVariables.player.progress != 0:
+        # У надписи BOSS FIGHT свой цвет (230, 20, 20), а также размер 100
         print_text('BOSS FIGHT', GlobalVariables.WIDTH - GlobalVariables.boss_fight_width,
                    GlobalVariables.distance_between_pos_texts * 3 + GlobalVariables.distance_from_the_sides,
                    font_size=100, font_color=(230, 20, 20))
