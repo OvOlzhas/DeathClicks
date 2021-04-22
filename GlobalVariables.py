@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from Enemies import Goblin, Griffin, Ogre, Minotaur, Boss_Nikita
+from Enemies import Goblin, Griffin, Ogre, Minotaur, BossNikita
 from Player import Player
 
 # Constants
@@ -38,7 +38,7 @@ ENEMY_CREATE = {'Goblin': Goblin,
                 'Griffin': Griffin,
                 'Minotaur': Minotaur,
                 'Ogre': Ogre,
-                'BOSS Nikita': Boss_Nikita}
+                'BOSS Nikita': BossNikita}
 
 # Player initialization
 player = Player()
