@@ -117,14 +117,14 @@ def print_all_text():
                GlobalVariables.distance_from_the_sides,
                GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides)
     if GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_attack:
-        print_text(f'UPGRADE',
+        print_text('UPGRADE',
                    GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides,
                    GlobalVariables.distance_between_pos_texts * 1 + GlobalVariables.distance_from_the_sides)
     print_text(f'Your AutoAttackDamage: {GlobalVariables.player.auto_attack_damage}',
                GlobalVariables.distance_from_the_sides,
                GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides)
     if GlobalVariables.player.coins >= GlobalVariables.player.coins_for_upgrade_auto_attack:
-        print_text(f'UPGRADE',
+        print_text('UPGRADE',
                    GlobalVariables.WIDTH - GlobalVariables.upgrade_width - GlobalVariables.distance_from_the_sides,
                    GlobalVariables.distance_between_pos_texts * 2 + GlobalVariables.distance_from_the_sides)
 
