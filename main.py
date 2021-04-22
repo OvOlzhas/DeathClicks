@@ -1,7 +1,7 @@
 import pygame
 
 from Draw_functions import draw_enemy, update_enemy_position
-from Gamefunctions import input_processing, print_all_text, auto_attack, check_enemy
+from GameFunctions import input_processing, print_all_text, auto_attack, check_enemy
 import GlobalVariables
 
 
